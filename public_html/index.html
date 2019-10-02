@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>Find Your Location in below Map</h2>   
+        <button onclick="getlocation()"> Show Position</button>   
+        <div id="demo" style="width: 600px; height: 400px; margin-left: 200px;border: 3px solid pink"></div> 
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLq0QWIJeIu6yviNSQAw0m4FCIFY20u8E&callback=initMap">
+        </script>
+        <script>
+            function getlocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(initMap);
+                } else {
+                    alert("Sorry! your Browser does not support Geolocation API");
+                }
+            }
+            function initMap(position) {
+                latt = position.coords.latitude;
+                long = position.coords.longitude;
+                console.log(latt);
+                console.log(long);
+                
+                var lattlong = new google.maps.LatLng(latt, long);
+               
+                var myOptions = {
+                    center: lattlong,
+                    zoom: 15
+                    
+                };
+                var maps = new google.maps.Map(document.getElementById("demo"), myOptions);
+                var markers =
+                        new google.maps.Marker({position: lattlong, map: maps, title: "You are here!"});
+            }
+        </script>
+    </body>
+</html>
